@@ -43,7 +43,10 @@ const App: FC = () => {
 
   useEffect(() => {
     let ignore = false;
-    Promise.allSettled([dispatch(fetchUser()), dispatch(getIngredients())]).finally(() => {
+    Promise.allSettled([
+      dispatch(fetchUser()),
+      dispatch(getIngredients())
+    ]).finally(() => {
       if (!ignore) setAppReady(true);
     });
     return () => {
@@ -58,7 +61,8 @@ const App: FC = () => {
 
   const isAuthPage = AUTH_ROUTE_RE.test(location.pathname);
 
-  const showGlobalPreloader = (!appReady || isIngredientsLoading || isUserLoading) && !isAuthPage;
+  const showGlobalPreloader =
+    (!appReady || isIngredientsLoading || isUserLoading) && !isAuthPage;
 
   return (
     <div className={styles.app}>
@@ -136,7 +140,6 @@ const App: FC = () => {
 
         <Route path='*' element={<NotFound404 />} />
 
-        
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
         <Route path='/feed/:number' element={<OrderInfo />} />
         <Route
