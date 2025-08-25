@@ -1,38 +1,42 @@
-import { forwardRef, useMemo } from 'react';
-import { TIngredientsCategoryProps } from './type';
+import React, { forwardRef } from 'react';
 import { TIngredient } from '@utils-types';
-import { IngredientsCategoryUI } from '../ui/ingredients-category';
+import { BurgerIngredient } from '../burger-ingredient/burger-ingredient';
 
-export const IngredientsCategory = forwardRef<
+
+type IngredientsCategoryUIProps = {
+  title: string;
+  titleRef?: React.RefObject<HTMLHeadingElement> | null;
+  ingredients: TIngredient[];
+  ingredientsCounters: Record<string, number>;
+};
+
+/**
+ * ВАЖНО: не оборачиваем <BurgerIngredient /> в <li>,
+ * т.к. сам BurgerIngredientUI (из @ui) рендерит <li>.
+ */
+export const IngredientsCategoryUI = forwardRef<
   HTMLUListElement,
-  TIngredientsCategoryProps
->(({ title, titleRef, ingredients }, ref) => {
-  /** TODO: взять переменную из стора */
-  const burgerConstructor = {
-    bun: {
-      _id: ''
-    },
-    ingredients: []
-  };
-
-  const ingredientsCounters = useMemo(() => {
-    const { bun, ingredients } = burgerConstructor;
-    const counters: { [key: string]: number } = {};
-    ingredients.forEach((ingredient: TIngredient) => {
-      if (!counters[ingredient._id]) counters[ingredient._id] = 0;
-      counters[ingredient._id]++;
-    });
-    if (bun) counters[bun._id] = 2;
-    return counters;
-  }, [burgerConstructor]);
-
+  IngredientsCategoryUIProps
+>(({ title, titleRef, ingredients, ingredientsCounters }, ref) => {
   return (
-    <IngredientsCategoryUI
-      title={title}
-      titleRef={titleRef}
-      ingredients={ingredients}
-      ingredientsCounters={ingredientsCounters}
-      ref={ref}
-    />
+    <section id={title}>
+      <h2 ref={titleRef ?? undefined} className="text text_type_main-medium mb-6">
+        {title}
+      </h2>
+
+      <ul ref={ref}>
+        {ingredients.map((item) => (
+          <BurgerIngredient
+            key={item._id}
+            ingredient={item}
+            count={ingredientsCounters[item._id] || 0}
+          />
+        ))}
+      </ul>
+    </section>
   );
 });
+
+IngredientsCategoryUI.displayName = 'IngredientsCategoryUI';
+
+export default IngredientsCategoryUI;

@@ -1,1 +1,4 @@
-export { IngredientsCategory } from './ingredients-category';
+export { default as IngredientsCategoryUI } from './ingredients-category';
+
+
+

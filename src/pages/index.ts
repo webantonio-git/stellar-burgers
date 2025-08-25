@@ -1,9 +1,10 @@
-export * from './constructor-page';
-export * from './feed';
-export * from './forgot-password';
-export * from './login';
-export * from './not-fount-404';
-export * from './profile';
-export * from './profile-orders';
-export * from './register';
-export * from './reset-password';
+export { ConstructorPage } from './constructor-page';
+export { Feed } from './feed';              
+export { ForgotPassword } from './forgot-password';
+export { Login } from './login';
+export { NotFound404 } from './not-fount-404';
+export { Profile } from './profile';
+export { ProfileOrders } from './profile-orders';
+export { Register } from './register';
+export { ResetPassword } from './reset-password';
+
