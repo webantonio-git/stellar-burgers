@@ -1,25 +1,21 @@
-import React, { FC } from 'react';
-import { OrderStatusProps } from './type';
-import { OrderStatusUI } from '@ui';
+import React from 'react';
 
-const statusText: { [key: string]: string } = {
-  pending: 'Готовится',
+type Props = { status?: 'done' | 'pending' | 'created' | string };
+
+const TEXT: Record<string, string> = {
   done: 'Выполнен',
+  pending: 'Готовится',
   created: 'Создан'
 };
 
-export const OrderStatus: FC<OrderStatusProps> = ({ status }) => {
-  let textStyle = '';
-  switch (status) {
-    case 'pending':
-      textStyle = '#E52B1A';
-      break;
-    case 'done':
-      textStyle = '#00CCCC';
-      break;
-    default:
-      textStyle = '#F2F2F3';
-  }
+export const OrderStatus: React.FC<Props> = ({ status = '' }) => {
+  const text = TEXT[status] ?? '';
+  if (!text) return null;
 
-  return <OrderStatusUI textStyle={textStyle} text={statusText[textStyle]} />;
+  // как в эталоне: зелёный только для done, остальные — обычный цвет
+  const colorClass = status === 'done' ? 'text_color_success' : '';
+
+  return <p className={`text text_type_main-default ${colorClass}`}>{text}</p>;
 };
+
+export default OrderStatus;

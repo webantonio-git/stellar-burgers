@@ -1,34 +1,44 @@
 .containerMain {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   max-width: 1240px;
-  margin-left: auto;
-  margin-right: auto;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .titleBox {
   width: 100%;
-  max-width: 1240px;
   display: flex;
-  justify-content: flex-start;
   align-items: center;
+  justify-content: flex-start;
 }
 
-.main {
-  display: flex;
-  justify-content: space-between;
-  height: 100%;
-  width: 1240px;
-  overflow: hidden;
+.columns {
+  display: grid;
+  grid-template-columns: 608px 580px;
+  gap: 40px;
+  align-items: start;
+  justify-content: center;
 }
 
 .columnOrders {
-  width: 608px;
+  min-height: 0;
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+  padding-right: 8px;
 }
 
 .columnInfo {
-  overflow-y: auto;
-  overflow-x: hidden;
-  width: 580px;
+  overflow: hidden;
+}
+
+@media (max-width: 1280px) {
+  .columns {
+    grid-template-columns: 1fr;
+  }
+  .columnOrders {
+    height: auto;
+    max-height: none;
+  }
 }

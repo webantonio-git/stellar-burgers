@@ -1,5 +1,15 @@
-import { TOrder } from '@utils-types';
+import { TOrder, TIngredient } from '@utils-types';
 
 export type OrdersListUIProps = {
-  orderByDate: TOrder[];
+  orders?: TOrder[];
+  orderByDate?: TOrder[];
+};
+
+
+export type TOrderInfo = TOrder & {
+  ingredientsInfo: TIngredient[];     
+  ingredientsToShow: TIngredient[];    
+  remains: number;                    
+  total: number;                       
+  date: Date;                           
 };

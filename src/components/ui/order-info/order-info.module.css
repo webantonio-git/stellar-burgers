@@ -1,7 +1,8 @@
 .wrap {
-  margin: 0 auto;
-  width: 640px;
+  margin: 0 auto;   
+  width: 520px;
 }
+
 .number {
   text-align: center;
 }
@@ -71,6 +72,21 @@
   justify-content: flex-start;
   align-items: center;
 }
+
 .total {
   margin-left: auto;
 }
+
+
+.pageCenter {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0 80px; 
+}
+
+
+.wrap {
+  margin: 0 auto;
+  width: 520px;
+}
+

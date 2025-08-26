@@ -1,38 +1,35 @@
-import { forwardRef, useMemo } from 'react';
-import { TIngredientsCategoryProps } from './type';
+import React, { forwardRef } from 'react';
 import { TIngredient } from '@utils-types';
-import { IngredientsCategoryUI } from '../ui/ingredients-category';
+import { BurgerIngredient } from '../burger-ingredient/burger-ingredient';
 
-export const IngredientsCategory = forwardRef<
+type IngredientsCategoryUIProps = {
+  title: string;
+  titleRef?: React.RefObject<HTMLHeadingElement> | null;
+  ingredients: TIngredient[];
+  ingredientsCounters: Record<string, number>;
+};
+
+export const IngredientsCategoryUI = forwardRef<
   HTMLUListElement,
-  TIngredientsCategoryProps
->(({ title, titleRef, ingredients }, ref) => {
-  /** TODO: взять переменную из стора */
-  const burgerConstructor = {
-    bun: {
-      _id: ''
-    },
-    ingredients: []
-  };
+  IngredientsCategoryUIProps
+>(({ title, titleRef, ingredients, ingredientsCounters }, ref) => (
+  <section id={title}>
+    <h2 ref={titleRef ?? undefined} className='text text_type_main-medium mb-6'>
+      {title}
+    </h2>
 
-  const ingredientsCounters = useMemo(() => {
-    const { bun, ingredients } = burgerConstructor;
-    const counters: { [key: string]: number } = {};
-    ingredients.forEach((ingredient: TIngredient) => {
-      if (!counters[ingredient._id]) counters[ingredient._id] = 0;
-      counters[ingredient._id]++;
-    });
-    if (bun) counters[bun._id] = 2;
-    return counters;
-  }, [burgerConstructor]);
+    <ul ref={ref}>
+      {ingredients.map((item) => (
+        <BurgerIngredient
+          key={item._id}
+          ingredient={item}
+          count={ingredientsCounters[item._id] || 0}
+        />
+      ))}
+    </ul>
+  </section>
+));
 
-  return (
-    <IngredientsCategoryUI
-      title={title}
-      titleRef={titleRef}
-      ingredients={ingredients}
-      ingredientsCounters={ingredientsCounters}
-      ref={ref}
-    />
-  );
-});
+IngredientsCategoryUI.displayName = 'IngredientsCategoryUI';
+
+export default IngredientsCategoryUI;
