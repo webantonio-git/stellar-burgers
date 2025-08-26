@@ -1,5 +1,5 @@
 export { ConstructorPage } from './constructor-page';
-export { Feed } from './feed';              
+export { Feed } from './feed';
 export { ForgotPassword } from './forgot-password';
 export { Login } from './login';
 export { NotFound404 } from './not-fount-404';
@@ -7,4 +7,3 @@ export { Profile } from './profile';
 export { ProfileOrders } from './profile-orders';
 export { Register } from './register';
 export { ResetPassword } from './reset-password';
-

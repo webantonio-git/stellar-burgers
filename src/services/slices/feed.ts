@@ -41,7 +41,11 @@ const feedSlice = createSlice({
     },
     onMessage: (
       state,
-      action: PayloadAction<{ orders: TOrder[]; total: number; totalToday: number }>
+      action: PayloadAction<{
+        orders: TOrder[];
+        total: number;
+        totalToday: number;
+      }>
     ) => {
       const { orders, total, totalToday } = action.payload || {
         orders: [],

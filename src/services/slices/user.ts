@@ -8,6 +8,7 @@ import {
   updateUserApi
 } from '../../utils/burger-api';
 import { setCookie, deleteCookie } from '../../utils/cookie';
+import { getCookie } from '../../utils/cookie';
 
 type UserState = {
   user: TUser | null;
@@ -48,10 +49,16 @@ export const logoutUser = createAsyncThunk('user/logout', async () => {
   return;
 });
 
-export const fetchUser = createAsyncThunk('user/fetch', async () => {
-  const res = await getUserApi();
-  return res;
-});
+export const fetchUser = createAsyncThunk(
+  'user/fetchUser',
+  async (_, thunkAPI) => {
+    const token = getCookie('accessToken');
+    if (!token) {
+      return thunkAPI.rejectWithValue('no token');
+    }
+    return await getUserApi();
+  }
+);
 
 export const updateUser = createAsyncThunk(
   'user/update',
@@ -72,7 +79,7 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-   
+
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -95,7 +102,6 @@ const userSlice = createSlice({
         state.error = action.error.message ?? 'Ошибка авторизации';
       })
 
-    
       .addCase(registerUser.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -125,7 +131,6 @@ const userSlice = createSlice({
         state.error = null;
       })
 
-     
       .addCase(fetchUser.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -145,7 +150,6 @@ const userSlice = createSlice({
         } catch {}
       })
 
- 
       .addCase(updateUser.fulfilled, (state, action) => {
         state.user = action.payload.user;
       });

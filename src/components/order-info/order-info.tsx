@@ -1,5 +1,5 @@
-import { FC, useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { FC, useEffect, useMemo, useState, useContext } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient, TOrder } from '@utils-types';
@@ -7,14 +7,19 @@ import { useSelector, useDispatch } from '../../services/store';
 import { selectIngredients } from '../../services/selectors';
 import { getIngredients } from '../../services/slices/ingredients';
 import { getOrderByNumberApi } from '@api';
+import styles from '../ui/order-info/order-info.module.css';
+import { GlobalLoadingContext } from '../app/app';
 
 export const OrderInfo: FC = () => {
   const { number } = useParams<{ number: string }>();
+  const location = useLocation();
+  const isModal = Boolean((location.state as any)?.background);
   const dispatch = useDispatch();
 
   const ingredients = useSelector(selectIngredients);
   const [orderData, setOrderData] = useState<TOrder | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const showGlobalPreloader = useContext(GlobalLoadingContext);
 
   useEffect(() => {
     if (!ingredients || ingredients.length === 0) {
@@ -36,13 +41,16 @@ export const OrderInfo: FC = () => {
       .finally(() => {
         if (!ignore) setLoading(false);
       });
-    return () => { ignore = true; };
+    return () => {
+      ignore = true;
+    };
   }, [number]);
 
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients || ingredients.length === 0) return null;
 
-    const ingredientsInfo: { [key: string]: TIngredient & { count: number } } = {};
+    const ingredientsInfo: { [key: string]: TIngredient & { count: number } } =
+      {};
     let total = 0;
 
     for (const id of orderData.ingredients) {
@@ -67,8 +75,10 @@ export const OrderInfo: FC = () => {
   }, [orderData, ingredients]);
 
   if (!orderInfo || loading) {
-    return <Preloader />;
+    return showGlobalPreloader ? null : <Preloader />;
   }
 
-  return <OrderInfoUI orderInfo={orderInfo} />;
+  const content = <OrderInfoUI orderInfo={orderInfo} />;
+
+  return isModal ? content : <div className={styles.pageCenter}>{content}</div>;
 };

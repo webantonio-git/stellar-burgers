@@ -5,15 +5,17 @@ import styles from './constructor-page.module.css';
 import { BurgerIngredients } from '../../components';
 import { BurgerConstructor } from '../../components';
 import { Preloader } from '../../components/ui';
-import { FC } from 'react';
+import { FC, useContext } from 'react'; // ⬅️ добавили useContext
 import { selectIngredientsLoading } from '../../services/selectors';
+import { GlobalLoadingContext } from '../../components/app/app'; // ⬅️ добавили контекст
 
 export const ConstructorPage: FC = () => {
   const isIngredientsLoading = useSelector(selectIngredientsLoading);
+  const showGlobalPreloader = useContext(GlobalLoadingContext); // ⬅️ узнаём, показан ли глобальный прелоадер
 
   return (
     <>
-      {isIngredientsLoading ? (
+      {isIngredientsLoading && !showGlobalPreloader ? ( // ⬅️ не дублируем, если глобальный уже активен
         <Preloader />
       ) : (
         <main className={styles.containerMain}>

@@ -21,14 +21,13 @@ export const BurgerIngredientsUI: FC<BurgerIngredientsUIProps> = memo(
     saucesRef,
     onTabClick
   }) => {
- 
     const { bun, ingredients: constructorItems } = useSelector(
       (state: RootState) => state.burgerConstructor
     );
 
     const ingredientsCounters = useMemo(() => {
       const map: Record<string, number> = {};
-      if (bun) map[bun._id] = 2; 
+      if (bun) map[bun._id] = 2;
       constructorItems.forEach((item) => {
         map[item._id] = (map[item._id] || 0) + 1;
       });
@@ -39,13 +38,21 @@ export const BurgerIngredientsUI: FC<BurgerIngredientsUIProps> = memo(
       <section className={styles.burger_ingredients}>
         <nav>
           <ul className={styles.menu}>
-            <Tab value="bun" active={currentTab === 'bun'} onClick={onTabClick}>
+            <Tab value='bun' active={currentTab === 'bun'} onClick={onTabClick}>
               Булки
             </Tab>
-            <Tab value="main" active={currentTab === 'main'} onClick={onTabClick}>
+            <Tab
+              value='main'
+              active={currentTab === 'main'}
+              onClick={onTabClick}
+            >
               Начинки
             </Tab>
-            <Tab value="sauce" active={currentTab === 'sauce'} onClick={onTabClick}>
+            <Tab
+              value='sauce'
+              active={currentTab === 'sauce'}
+              onClick={onTabClick}
+            >
               Соусы
             </Tab>
           </ul>
@@ -53,21 +60,21 @@ export const BurgerIngredientsUI: FC<BurgerIngredientsUIProps> = memo(
 
         <div className={styles.content}>
           <IngredientsCategoryUI
-            title="Булки"
+            title='Булки'
             titleRef={titleBunRef}
             ingredients={buns}
             ref={bunsRef}
             ingredientsCounters={ingredientsCounters}
           />
           <IngredientsCategoryUI
-            title="Начинки"
+            title='Начинки'
             titleRef={titleMainRef}
             ingredients={mains}
             ref={mainsRef}
             ingredientsCounters={ingredientsCounters}
           />
           <IngredientsCategoryUI
-            title="Соусы"
+            title='Соусы'
             titleRef={titleSaucesRef}
             ingredients={sauces}
             ref={saucesRef}

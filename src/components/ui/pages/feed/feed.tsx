@@ -14,26 +14,34 @@ export const Feed: FC<FeedUIProps> = ({ orders, total, totalToday }) => {
   const orderByDate = useMemo(
     () =>
       [...(orders ?? [])].sort(
-        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       ),
     [orders]
   );
 
   const readyOrders = useMemo(
-    () => orderByDate.filter(o => o.status === 'done').map(o => o.number).slice(0, 30),
+    () =>
+      orderByDate
+        .filter((o) => o.status === 'done')
+        .map((o) => o.number)
+        .slice(0, 14),
     [orderByDate]
   );
 
-
   const inWorkOrders = useMemo(
-    () => orderByDate.filter(o => o.status !== 'done').map(o => o.number).slice(0, 30),
+    () =>
+      orderByDate
+        .filter((o) => o.status !== 'done')
+        .map((o) => o.number)
+        .slice(0, 14),
     [orderByDate]
   );
 
   return (
     <section className={styles.containerMain}>
       <div className={styles.titleBox}>
-        <h1 className="text text_type_main-large mt-10 mb-5">Лента заказов</h1>
+        <h1 className='text text_type_main-large mt-10 mb-5'>Лента заказов</h1>
       </div>
 
       <div className={styles.columns}>

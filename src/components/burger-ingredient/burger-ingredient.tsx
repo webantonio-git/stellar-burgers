@@ -7,7 +7,10 @@ import { RootState } from '../../services/store';
 import { useLocation } from 'react-router-dom';
 import { TBurgerIngredientProps } from './type';
 
-export const BurgerIngredient: FC<TBurgerIngredientProps> = ({ ingredient, count }) => {
+export const BurgerIngredient: FC<TBurgerIngredientProps> = ({
+  ingredient,
+  count
+}) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -19,12 +22,12 @@ export const BurgerIngredient: FC<TBurgerIngredientProps> = ({ ingredient, count
     count !== undefined
       ? count
       : ingredient.type === 'bun'
-      ? bun?._id === ingredient._id
-        ? 2
-        : 0
-      : ingredients.filter(
-          (item: TConstructorIngredient) => item._id === ingredient._id
-        ).length;
+        ? bun?._id === ingredient._id
+          ? 2
+          : 0
+        : ingredients.filter(
+            (item: TConstructorIngredient) => item._id === ingredient._id
+          ).length;
 
   const handleAdd = () => {
     dispatch(addIngredient(ingredient));

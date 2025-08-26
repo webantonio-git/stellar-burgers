@@ -25,7 +25,7 @@ const constructorSlice = createSlice({
         }
       },
       prepare: (ingredient: TIngredient) => ({
-        payload: { ...ingredient, id: nanoid() } 
+        payload: { ...ingredient, id: nanoid() }
       })
     },
     removeIngredient: (state, action: PayloadAction<string>) => {

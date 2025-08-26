@@ -1,2 +1,1 @@
 export { Feed } from './feed';
-

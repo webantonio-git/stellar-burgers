@@ -7,4 +7,3 @@ export * from './profile-orders';
 export * from './register';
 export * from './reset-password';
 export { Feed as FeedUI } from './feed';
-

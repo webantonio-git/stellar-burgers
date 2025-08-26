@@ -14,12 +14,20 @@ export const FeedInfo: FC = () => {
   const totalToday = useSelector(selectFeedTotalToday);
 
   const readyOrders = useMemo(
-    () => orders.filter((o) => o.status === 'done').map((o) => o.number).slice(0, 20),
+    () =>
+      orders
+        .filter((o) => o.status === 'done')
+        .map((o) => o.number)
+        .slice(0, 20),
     [orders]
   );
 
   const pendingOrders = useMemo(
-    () => orders.filter((o) => o.status === 'pending').map((o) => o.number).slice(0, 20),
+    () =>
+      orders
+        .filter((o) => o.status === 'pending')
+        .map((o) => o.number)
+        .slice(0, 20),
     [orders]
   );
 

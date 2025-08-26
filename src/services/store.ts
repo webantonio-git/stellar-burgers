@@ -12,7 +12,6 @@ import constructorReducer from './slices/constructor';
 import order from './slices/order';
 import feed, { feedActions } from './slices/feed';
 
-
 const rootReducer = combineReducers({
   ingredients,
   user,
@@ -23,10 +22,8 @@ const rootReducer = combineReducers({
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-
 const WS_PUBLIC_URL = 'wss://norma.nomoreparties.space/orders/all';
 const WS_USER_URL = 'wss://norma.nomoreparties.space/orders';
-
 
 const readAccessToken = (): string => {
   const m = document.cookie.match(/(?:^|; )accessToken=([^;]*)/);
@@ -34,7 +31,6 @@ const readAccessToken = (): string => {
   const raw = decodeURIComponent(m[1]);
   return raw.replace(/^Bearer\s+/i, '');
 };
-
 
 const createSocketMiddleware = (
   defaultUrl: string,
@@ -44,14 +40,12 @@ const createSocketMiddleware = (
   let socket: WebSocket | null = null;
 
   return (_store: MiddlewareAPI) => (next) => (action) => {
-
     if (typeof action !== 'object' || action === null || !('type' in action)) {
       return next(action);
     }
 
     switch (action.type) {
       case actions.connect?.type: {
-
         let url: string = (action as any).payload || defaultUrl;
 
         if (withAuth) {
@@ -62,7 +56,6 @@ const createSocketMiddleware = (
           }
         }
 
-      
         if (socket) {
           try {
             socket.close();
@@ -71,26 +64,27 @@ const createSocketMiddleware = (
 
         socket = new WebSocket(url);
 
-     
         socket.onopen = () => {
           try {
-       
             _store.dispatch(actions.onOpen?.(undefined as any));
           } catch {}
         };
 
         socket.onerror = (e: Event) => {
-      
           const message =
-            (e as unknown as { message?: string })?.message || 'WebSocket error';
+            (e as unknown as { message?: string })?.message ||
+            'WebSocket error';
           try {
             _store.dispatch(actions.onError?.(message as any));
           } catch {}
         };
 
         socket.onclose = (e: CloseEvent) => {
-        
-          const payload = { code: e.code, reason: e.reason, wasClean: e.wasClean };
+          const payload = {
+            code: e.code,
+            reason: e.reason,
+            wasClean: e.wasClean
+          };
           try {
             _store.dispatch(actions.onClose?.(payload as any));
           } catch {}
@@ -128,9 +122,7 @@ const createSocketMiddleware = (
   };
 };
 
-
 const feedWs = createSocketMiddleware(WS_PUBLIC_URL, feedActions);
-
 
 const store = configureStore({
   reducer: rootReducer,
@@ -138,7 +130,6 @@ const store = configureStore({
     getDefault({
       serializableCheck: {
         ignoredActions: [
-      
           'feed/onOpen',
           'feed/onClose',
           'feed/onError',
@@ -147,12 +138,9 @@ const store = configureStore({
           'profileFeed/onError'
         ],
         ignoredActionPaths: ['meta.arg', 'meta.baseQueryMeta'],
-        ignoredPaths: ['ws.socket'] 
+        ignoredPaths: ['ws.socket']
       }
-    }).concat(
-      feedWs
- 
-    ),
+    }).concat(feedWs),
   devTools: process.env.NODE_ENV !== 'production'
 });
 

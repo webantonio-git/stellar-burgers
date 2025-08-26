@@ -15,7 +15,8 @@ export type TAppHeaderUIProps = {
 export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
   const { pathname } = useLocation();
 
-  const constructorActive = pathname === '/' || pathname.startsWith('/ingredients');
+  const constructorActive =
+    pathname === '/' || pathname.startsWith('/ingredients');
   const feedActive = pathname.startsWith('/feed');
   const profileActive = pathname.startsWith('/profile');
 
@@ -24,33 +25,33 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
       <nav className={styles.menu}>
         <div className={styles.menu_part_left}>
           <NavLink
-            to="/"
+            to='/'
             className={`${styles.link} p-5 ${constructorActive ? styles.active : ''}`}
           >
             <BurgerIcon type={constructorActive ? 'primary' : 'secondary'} />
-            <p className="text text_type_main-default ml-2">Конструктор</p>
+            <p className='text text_type_main-default ml-2'>Конструктор</p>
           </NavLink>
 
           <NavLink
-            to="/feed"
+            to='/feed'
             className={`${styles.link} p-5 ${feedActive ? styles.active : ''}`}
           >
             <ListIcon type={feedActive ? 'primary' : 'secondary'} />
-            <p className="text text_type_main-default ml-2">Лента заказов</p>
+            <p className='text text_type_main-default ml-2'>Лента заказов</p>
           </NavLink>
         </div>
 
-        <Link to="/" className={styles.logoLink}>
+        <Link to='/' className={styles.logoLink}>
           <Logo className={styles.logoImg} />
         </Link>
 
         <div className={styles.link_position_last}>
           <NavLink
-            to="/profile"
+            to='/profile'
             className={`${styles.link} p-5 ${profileActive ? styles.active : ''}`}
           >
             <ProfileIcon type={profileActive ? 'primary' : 'secondary'} />
-            <p className="text text_type_main-default ml-2">
+            <p className='text text_type_main-default ml-2'>
               {userName || 'Личный кабинет'}
             </p>
           </NavLink>

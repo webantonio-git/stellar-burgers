@@ -15,8 +15,6 @@ const initialState: OrderState = {
   error: null
 };
 
-
-
 export const createOrder = createAsyncThunk<
   TOrder,
   string[],
@@ -24,7 +22,7 @@ export const createOrder = createAsyncThunk<
 >('order/createOrder', async (ingredientIds, thunkApi) => {
   try {
     const res = await orderBurgerApi(ingredientIds);
-   
+
     thunkApi.dispatch(clearConstructor());
     return res.order;
   } catch (e: any) {
