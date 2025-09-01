@@ -1,7 +1,39 @@
-.items {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px 40px;
-  margin: 0;
-  padding: 0;
+.category {
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(240px, 1fr));
+  gap: 24px 16px; 
+}
+
+.card {
+  position: relative;
+  cursor: pointer;
+}
+
+.counter {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.name {
+  margin: 0;
+}
+
+

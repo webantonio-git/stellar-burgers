@@ -1,24 +1,39 @@
+import React, { forwardRef } from 'react';
+import { TIngredient } from '@utils-types';
+import { BurgerIngredient } from '../../burger-ingredient/burger-ingredient';
 import styles from './ingredients-category.module.css';
-import { forwardRef } from 'react';
-import { TIngredientsCategoryUIProps } from './type';
-import { BurgerIngredient } from '@components';
+
+type IngredientsCategoryUIProps = {
+  title: string;
+  titleRef?: React.RefObject<HTMLHeadingElement> | null;
+  ingredients: TIngredient[];
+  ingredientsCounters: Record<string, number>;
+};
 
 export const IngredientsCategoryUI = forwardRef<
   HTMLUListElement,
-  TIngredientsCategoryUIProps
+  IngredientsCategoryUIProps
 >(({ title, titleRef, ingredients, ingredientsCounters }, ref) => (
-  <>
-    <h3 className='text text_type_main-medium mt-10 mb-6' ref={titleRef}>
+  <section id={title} className={styles.category}>
+    <h2
+      ref={titleRef ?? undefined}
+      className='text text_type_main-medium mb-6 '
+    >
       {title}
-    </h3>
-    <ul className={styles.items} ref={ref}>
-      {ingredients.map((ingredient) => (
+    </h2>
+
+    <ul ref={ref} className={styles.list}>
+      {ingredients.map((item) => (
         <BurgerIngredient
-          ingredient={ingredient}
-          key={ingredient._id}
-          count={ingredientsCounters[ingredient._id]}
+          key={item._id}
+          ingredient={item}
+          count={ingredientsCounters[item._id] || 0}
         />
       ))}
     </ul>
-  </>
+  </section>
 ));
+
+IngredientsCategoryUI.displayName = 'IngredientsCategoryUI';
+
+export default IngredientsCategoryUI;
