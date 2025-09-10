@@ -1,6 +1,5 @@
 describe('Конструктор бургера — E2E', () => {
-  const API_URL =
-    Cypress.env('BURGER_API_URL') || 'https://norma.nomoreparties.space/api';
+  const API_URL = Cypress.env('BURGER_API_URL');
 
   const trimSlash = (s: string) => s.replace(/\/+$/, '');
   const BASE = trimSlash(API_URL);
