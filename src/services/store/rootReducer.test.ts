@@ -1,21 +1,8 @@
-import { combineReducers } from '@reduxjs/toolkit';
-import ingredients from '../slices/ingredients';
-import user from '../slices/user';
-import constructorReducer from '../slices/constructor';
-import order from '../slices/order';
-import feed from '../slices/feed';
+import { rootReducer } from '../store';
 
 describe('rootReducer', () => {
-  const rootReducer = combineReducers({
-    ingredients,
-    user,
-    burgerConstructor: constructorReducer,
-    order,
-    feed
-  });
-
-  it('возвращает корректное начальное состояние для неопознанного экшена', () => {
-    const state = rootReducer(undefined, { type: 'UNKNOWN_ACTION' });
+  it('должен инициализировать корректное начальное состояние', () => {
+    const state = rootReducer(undefined, { type: '@@INIT' } as any);
     expect(state).toEqual({
       ingredients: { items: [], isLoading: false, error: null },
       user: { user: null, isAuth: false, isLoading: false, error: null },

@@ -1,0 +1,43 @@
+{
+  "success": true,
+  "orders": [
+    {
+      "_id": "66f1a6c01fbd000012345001",
+      "ingredients": [
+        "60d3b41abdacab0026a733c6",
+        "60d3b41abdacab0026a733c7",
+        "60d3b41abdacab0026a733cd"
+      ],
+      "status": "done",
+      "name": "Флюоресцентный бургер",
+      "number": 34567,
+      "createdAt": "2025-09-09T11:22:33.456Z",
+      "updatedAt": "2025-09-09T11:23:10.000Z"
+    },
+    {
+      "_id": "66f1a6c01fbd000012345002",
+      "ingredients": [
+        "60d3b41abdacab0026a733c6",
+        "60d3b41abdacab0026a733cf",
+        "60d3b41abdacab0026a733ca",
+        "60d3b41abdacab0026a733cb"
+      ],
+      "status": "pending",
+      "name": "Краторный антарианский бургер",
+      "number": 34568,
+      "createdAt": "2025-09-09T12:01:00.000Z",
+      "updatedAt": "2025-09-09T12:01:30.000Z"
+    },
+    {
+      "_id": "66f1a6c01fbd000012345003",
+      "ingredients": ["60d3b41abdacab0026a733c7", "60d3b41abdacab0026a733d0"],
+      "status": "done",
+      "name": "Спрут-минеральный традиционный-галактический бургер",
+      "number": 34569,
+      "createdAt": "2025-09-09T13:15:42.000Z",
+      "updatedAt": "2025-09-09T13:16:10.000Z"
+    }
+  ],
+  "total": 123456,
+  "totalToday": 321
+}
